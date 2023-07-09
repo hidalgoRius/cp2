@@ -1,0 +1,17 @@
+[
+  {
+    "cloudName": "AzureCloud",
+    "homeTenantId": "899789dc-202f-44b4-8472-a6d40f9eb440",
+    "id": "6618d84d-5bf1-4904-9b52-bc39868e37bf",
+    "isDefault": true,
+    "managedByTenants": [],
+    "name": "Azure for Students",
+    "state": "Enabled",
+    "tenantId": "899789dc-202f-44b4-8472-a6d40f9eb440",
+    "user": {
+      "name": "pau.hidalgo630@comunidadunir.net",
+      "type": "user"
+    }
+  }
+]
+
