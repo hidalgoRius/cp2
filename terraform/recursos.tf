@@ -1,6 +1,6 @@
 resource "azurerm_resource_group" "rg" {
   name     = var.resource_group_name
-  location = var.location_name
+  location = var.location
 }
 
 resource "azurerm_virtual_network" "vnet" {
@@ -30,7 +30,7 @@ resource "azurerm_network_interface" "nic" {
 }
 
 resource "azurerm_linux_virtual_machine" "vm" {
-  name                = "vm1"
+  name                = "podman-server"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   size                = "Standard_F2"
@@ -40,8 +40,8 @@ resource "azurerm_linux_virtual_machine" "vm" {
   ]
 
   admin_ssh_key {
-    username   = "azureuser"
-    public_key = file("~/.ssh/id_rsa.pub")
+    username   = var.ssh_user
+    public_key = file(var.public_key_path)
   }
 
   os_disk {
@@ -57,5 +57,22 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 }
 
-
-
+# BEGIN INIT ACR.
+resource "azurerm_container_registry" "acr" {
+  name                = "containerRegistry1"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  sku                 = "Standard"
+  admin_enabled       = false
+  georeplications {
+    location                = "East US"
+    zone_redundancy_enabled = true
+    tags                    = {}
+  }
+  georeplications {
+    location                = "North Europe"
+    zone_redundancy_enabled = true
+    tags                    = {}
+  }
+}
+# END: Init ACR
