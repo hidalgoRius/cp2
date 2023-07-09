@@ -1,3 +1,16 @@
+# DEFINE ENVIRONMENT.
+# ES UNA APROXIMACION PARA DEFINIR ENTORNOS DISTINTOS. Solo se aplicará como SUFIJO al resource group.
+# SE TRATA DE UN EJEMPLO PAR FINES ACADEMICOS. En entornos reales, la aproximación puede ser otra en función de las necesidades de la empresa.
+variable "env" {
+ type = string
+ description = "Environment deployment option. Must be specified, dev or prod"
+ nullable = false
+ validation {
+    condition = contains(["dev", "prod"], var.env)
+    error_message = "Valid value is one of the following: dev, prod."
+  }
+}
+
 variable "prefix" {
  type = string
  description = "A prefix for all resources"
@@ -31,15 +44,19 @@ variable "ssh_user" {
 variable "acr_name" {
  type = string
  description = "Azure Container Registry Name"
- default = "${var.prefix}-acr"
+ default = "acr"
 }
 
 variable "resource_group_name" {
-  default = "${var.prefix}-resource-group"
+  default = "resource-group"
 }
 
 variable "subnet_name" {
   default = "subnet1"
 }
 
+# AQUI PODRIAMOS HACER UNAC ONDICION: IF env.DEV -> una VM basica, ELSE env.PROD -> UNA MAS POTENTE.
+variable "vm_size" {
+ default = "Standard_F2"
+}
 

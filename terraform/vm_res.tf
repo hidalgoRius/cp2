@@ -1,8 +1,4 @@
-resource "azurerm_resource_group" "rg" {
-  name     = var.resource_group_name
-  location = var.location
-}
-
+# BEGIN DEFINE VIRTUAL NETWORK
 resource "azurerm_virtual_network" "vnet" {
   name                = "${var.prefix}-network"
   address_space       = ["10.0.0.0/16"]
@@ -16,16 +12,19 @@ resource "azurerm_subnet" "internal" {
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.0.2.0/24"]
 }
+# END DEFINE VIRTUAL NETWORK
 
 
-# Defining resource public IP.
+# BEGIN DEFINE resource public IP.
 resource "azurerm_public_ip" "pip" {
   name                = "${var.prefix}-pip"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   allocation_method   = "Dynamic"
 }
+# END DEFINE resource public IP
 
+# BEGIN DEFINE NET IFACES
 resource "azurerm_network_interface" "main" {
   name                = "${var.prefix}-nic1"
   resource_group_name = azurerm_resource_group.rg.name
@@ -50,16 +49,18 @@ resource "azurerm_network_interface" "internal" {
     private_ip_address_allocation = "Dynamic"
   }
 }
+# END DEFINE NET IFACES
 
 
+# BEGIN DEFINE VIRTUALMACHINE
 resource "azurerm_linux_virtual_machine" "vm" {
   name                = "${var.prefix}-podman-vm-server"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-  size                = "Standard_F2"
+  size                = var.vm_size
   admin_username      = "azureuser"
   network_interface_ids = [
-    azurerm_network_interface.nic.id,
+    azurerm_network_interface.main.id,
   ]
 
   admin_ssh_key {
@@ -75,27 +76,8 @@ resource "azurerm_linux_virtual_machine" "vm" {
   source_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
-    sku       = "20.04-LTS"
+    sku       = "22_04-lts-gen2"
     version   = "latest"
   }
 }
 
-# BEGIN INIT ACR.
-resource "azurerm_container_registry" "acr" {
-  name                = var.acr_name
-  resource_group_name = azurerm_resource_group.rg.name
-  location            = azurerm_resource_group.rg.location
-  sku                 = "Standard"
-  admin_enabled       = false
-  georeplications {
-    location                = "East US"
-    zone_redundancy_enabled = true
-    tags                    = {}
-  }
-  georeplications {
-    location                = "North Europe"
-    zone_redundancy_enabled = true
-    tags                    = {}
-  }
-}
-# END: Init ACR

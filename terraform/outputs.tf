@@ -6,7 +6,6 @@ output "vm_id" {
   value = azurerm_linux_virtual_machine.vm.id
 }
 
-
 output "acr_login_server" {
   value = azurerm_container_registry.acr.login_server
 }
