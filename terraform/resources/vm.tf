@@ -4,33 +4,56 @@ resource "azurerm_resource_group" "rg" {
 }
 
 resource "azurerm_virtual_network" "vnet" {
-  name                = var.network_name
+  name                = "${var.prefix}-network"
   address_space       = ["10.0.0.0/16"]
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 }
 
-resource "azurerm_subnet" "subnet" {
+resource "azurerm_subnet" "internal" {
   name                 = var.subnet_name
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.0.2.0/24"]
 }
 
-resource "azurerm_network_interface" "nic" {
-  name                = "vnic"
-  location            = azurerm_resource_group.rg.location
+
+# Defining resource public IP.
+resource "azurerm_public_ip" "pip" {
+  name                = "${var.prefix}-pip"
   resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  allocation_method   = "Dynamic"
+}
+
+resource "azurerm_network_interface" "main" {
+  name                = "${var.prefix}-nic1"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+
+  ip_configuration {
+    name                          = "primary"
+    subnet_id                     = azurerm_subnet.internal.id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.pip.id
+  }
+}
+
+resource "azurerm_network_interface" "internal" {
+  name                      = "${var.prefix}-nic2"
+  resource_group_name       = azurerm_resource_group.rg.name
+  location                  = azurerm_resource_group.rg.location
 
   ip_configuration {
     name                          = "internal"
-    subnet_id                     = azurerm_subnet.subnet.id
+    subnet_id                     = azurerm_subnet.internal.id
     private_ip_address_allocation = "Dynamic"
   }
 }
 
+
 resource "azurerm_linux_virtual_machine" "vm" {
-  name                = "podman-server"
+  name                = "${var.prefix}-podman-vm-server"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   size                = "Standard_F2"
@@ -59,7 +82,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
 # BEGIN INIT ACR.
 resource "azurerm_container_registry" "acr" {
-  name                = "containerRegistry1"
+  name                = var.acr_name
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   sku                 = "Standard"
