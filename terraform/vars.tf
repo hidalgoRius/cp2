@@ -60,3 +60,19 @@ variable "vm_size" {
  default = "Standard_F2"
 }
 
+
+#INIT K8S AKS Variable definition
+variable "k8s_node_count" {
+  type        = number
+  description = "The initial quantity of nodes for the node pool in PROD env."
+  default     = 3 #En el fichero k8s.tf se especifica que para el entorno DEV hay 1 nodo
+}
+
+variable "k8s_vm_size" {
+  type = string
+  default = "Standard_D2_v2" #En el fichero k8s.tf se especifica la version de la VM para el Entorno DEV.
+  description = "VM type"
+}
+# END K8S AK Variable definition 
+
+

@@ -58,7 +58,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   size                = var.vm_size
-  admin_username      = "azureuser"
+  admin_username      = var.ssh_user
   network_interface_ids = [
     azurerm_network_interface.main.id,
   ]
@@ -76,7 +76,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   source_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
-    sku       = "22_04-lts-gen2"
+    sku       = "18.04-LTS"
     version   = "latest"
   }
 }
