@@ -1,0 +1,12 @@
+---
+- name: 'Podman Servers Configuration'
+  hosts: podman-servers
+  remote_user: "{{ podman_servers_ssh_user }}"
+  become: true
+  vars_files:
+    - vars.yaml
+  tasks:
+    - name: "installing podman"
+      package:
+       name: "podman"
+       state: present

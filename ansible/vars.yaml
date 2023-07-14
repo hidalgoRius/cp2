@@ -1,0 +1,3 @@
+webserver: 'apache2'
+mensaje: 'Este es el mensaje que imprime Ansible'
+podman_servers_ssh_user: 'vmuser'
