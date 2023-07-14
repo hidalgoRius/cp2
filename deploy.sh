@@ -14,19 +14,22 @@ function terraform_process() {
 	eval "$tf_plan"
 	echo "$0 >>>>> $(date): Getting VM public IP..."
 	vm_pip="$(terraform output vm_public_ip)"
+	echo "$0 >>>>> $(date): Getting VM ssh login user..."
+	vm_ssh_user=$(terraform output ssh_user)
 	cd ..
         echo "$0 >>>>> $(date): Exit terraform folder. Now $(pwd)"
-
-
-
 }
 
 function ansible_process() {
+	ansible_playbook="ansible-playbook -i inventory playbook.yaml --extra-vars \"podman_ssh_login=$2\""
 	cd ansible
         echo "$0 >>>>> $(date): Entering to ansible folder. Now $(pwd)"
 	echo "$0 >>>>> $(date): Creating inventory file from Terraform output"
 	echo "[podman-servers]" > inventory
 	echo $1 | sed 's/^.//;s/.$//' >> inventory
+	echo "$0 >>>>> $(date): Executing command $ansible_playbook"
+	eval "$ansible_playbook"
+
 
 
 }
@@ -43,6 +46,7 @@ fi
 echo "$0 >>>>> $(date): Selected env: $1"
 
 vm_pip=""
+vm_ssh_user=""
 
 #EXECUTING TERRAFORM PROCESS
 echo "$0 >>>>> $(date): [START] TERRAFORM deploy infrastructure"
@@ -56,7 +60,7 @@ then
 fi
 
 echo "$0 >>>>> $(date): [START] ANSIBLE INFRASTRUCTURE CONFIGURATION"
-ansible_process "$vm_pip"
+ansible_process "$vm_pip" $vm_ssh_user
 echo "$0 >>>>> $(date): [END] ANSIBLE INFRASTRUCTURE CONFIGURATION"
 
 exit 1

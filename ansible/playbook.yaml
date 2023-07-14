@@ -1,12 +1,35 @@
 ---
 - name: 'Podman Servers Configuration'
   hosts: podman-servers
-  remote_user: "{{ podman_servers_ssh_user }}"
+  remote_user: "{{ podman_ssh_login }}"
   become: true
   vars_files:
     - vars.yaml
   tasks:
-    - name: "installing podman"
-      package:
-       name: "podman"
-       state: present
+    - name: Upgrade all packages to the latest version (apt-get upgrade)
+      apt:
+        name: "*"
+        state: latest
+        force: yes
+        force_apt_get: True
+
+    - name: Run the equivalent of "apt-get update" as a separate step
+      apt:
+        update_cache: yes
+        force: yes
+
+    - name: Install software-properties-common
+      apt:
+        name: software-properties-common
+        force: yes
+
+    - name: Add specified repository into sources list
+      apt_repository:
+        repo: ppa:projectatomic/ppa
+        state: present
+        update_cache: yes
+
+    - name: Install podman  (state=present is optional)
+      apt:
+        name: podman
+        state: present
