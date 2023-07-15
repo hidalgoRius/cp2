@@ -42,7 +42,7 @@
         password: "{{ htpasswd_passwd }}"
         owner: root
         group: root
-        mode: 666
+        mode: '0644'
  
     - name: Generate an OpenSSL private key 2048 and store it on "{{ pkey_path }}"
       community.crypto.openssl_privatekey:
