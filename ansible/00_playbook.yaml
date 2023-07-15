@@ -1,10 +1,10 @@
 ---
 - name: 'Podman Servers Configuration'
-  hosts: podman-servers
+  hosts: ContainerVM
   remote_user: "{{ podman_ssh_login }}"
   become: true
   vars_files:
-    - vars.yaml
+    - vars/prereq.yaml
   tasks:
     - name: Upgrade all packages to the latest version (apt-get upgrade)
       apt:
@@ -13,8 +13,9 @@
         force: yes
         force_apt_get: True
 
-    - name: Run the equivalent of "apt-get update" as a separate step
+    - name: Run the equivalent of "apt-get update" as a separate step, only if the last is more than "{{ update_cache_valid }}" seconds
       apt:
+        cache_valid_time: "{{ update_cache_valid }}"  #Only run "update_cache=yes" if the last one is more than 3600 seconds ago
         update_cache: yes
         force: yes
 
@@ -25,11 +26,11 @@
 
     - name: Add specified repository into sources list
       apt_repository:
-        repo: ppa:projectatomic/ppa
+        repo: "{{ podman_repository }}"
         state: present
         update_cache: yes
 
     - name: Install podman  (state=present is optional)
       apt:
-        name: podman
+        name: "{{ podman_package }}"
         state: present

@@ -1,0 +1,5 @@
+podman_repository: 'ppa:projectatomic/ppa'
+webserver: 'apache2'
+mensaje: 'Este es el mensaje que imprime Ansible'
+podman_package: 'podman'
+update_cache_valid: 3600

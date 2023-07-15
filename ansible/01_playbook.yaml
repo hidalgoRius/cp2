@@ -1,0 +1,19 @@
+---
+- name: 'Podman Application Setup'
+  hosts: ContainerVM
+  remote_user: "{{ podman_ssh_login }}"
+  become: true
+  vars_files:
+    - vars/podman.yaml 
+  tasks:
+    - name: Print version
+      debug:
+        msg: "Acr URL:  {{ az_acr_url }}/{{ podman_acr_folder }}"
+    - name: Build and push an image using username and password
+      containers.podman.podman_image:
+        name: nginx
+        push: true
+        username: "{{ az_acr_user }}"
+        password: "{{ az_acr_passwd }}"
+        push_args:
+          dest: "{{ az_acr_url }}/{{ podman_acr_folder }}"

@@ -13,7 +13,7 @@ resource "azurerm_container_registry" "acr" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   sku                 = var.acr_sku
-  admin_enabled       = false
+  admin_enabled       = true
 #  georeplications {
 #    location                = "East US"
 #    zone_redundancy_enabled = true
