@@ -3,9 +3,9 @@ Caso Práctico 2 - UNIR
 
 Despliega una Infraestructura en Azure mediante Terraform y la configura utilizando Ansible.
 
-1- Servicio de Kubernetes
-2- Maquina Virtual
-3- Un Repositorio de Contenedores Privado (ACR)
+1- Servicio de Kubernetes<br />
+2- Maquina Virtual<br />
+3- Un Repositorio de Contenedores Privado (ACR)<br />
 
 Para poderlo gestionar de manera automática, se facilita un script llamado deploy.sh que ejecuta el despliegue de la Infraestructura y, con los datos obtenidos de la infraestructura, llama a Ansible para configurar la Infraestructura.
 
