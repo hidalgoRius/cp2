@@ -1,6 +1,6 @@
 # BEGIN DEFINE VIRTUAL NETWORK
 resource "azurerm_virtual_network" "vnet" {
-  name                = "${var.prefix}-network"
+  name                = "${var.vm_name}-network"
   address_space       = ["10.0.0.0/16"]
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
@@ -17,7 +17,7 @@ resource "azurerm_subnet" "internal" {
 
 # BEGIN DEFINE resource public IP.
 resource "azurerm_public_ip" "pip" {
-  name                = "${var.prefix}-pip"
+  name                = "${var.vm_name}-pip"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   allocation_method   = "Dynamic"
@@ -26,7 +26,7 @@ resource "azurerm_public_ip" "pip" {
 
 # BEGIN DEFINE NET IFACES
 resource "azurerm_network_interface" "main" {
-  name                = "${var.prefix}-nic1"
+  name                = "${var.vm_name}-nic1"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
 
@@ -39,7 +39,7 @@ resource "azurerm_network_interface" "main" {
 }
 
 resource "azurerm_network_interface" "internal" {
-  name                      = "${var.prefix}-nic2"
+  name                      = "${var.vm_name}-nic2"
   resource_group_name       = azurerm_resource_group.rg.name
   location                  = azurerm_resource_group.rg.location
 
@@ -54,7 +54,7 @@ resource "azurerm_network_interface" "internal" {
 
 # BEGIN DEFINE VIRTUALMACHINE
 resource "azurerm_linux_virtual_machine" "vm" {
-  name                = "${var.prefix}-podman-vm-server"
+  name                = var.vm_name
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   size                = var.vm_size
@@ -73,11 +73,23 @@ resource "azurerm_linux_virtual_machine" "vm" {
     storage_account_type = "Standard_LRS"
   }
 
+ 
+  plan {
+    name      = var.vm_offer #same value for vm_offer
+    product   = var.vm_offer #same value for vm_offer
+    publisher = var.vm_publisher
+  }
+
   source_image_reference {
-    publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "18.04-LTS"
-    version   = "latest"
+    publisher = var.vm_publisher
+    offer     = var.vm_offer
+    sku       = var.vm_sku
+    version   = var.vm_version
   }
 }
 
+resource "azurerm_marketplace_agreement" "vmagree" {
+  publisher = var.vm_publisher
+  offer     = var.vm_offer
+  plan      = var.vm_plan
+}

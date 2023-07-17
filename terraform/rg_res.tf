@@ -1,6 +1,6 @@
 # BEGIN LOCAL VARS DEF
 locals {
-  rg_name = "${var.prefix}-${var.resource_group_name}-${var.env}"
+  rg_name = "${var.env}-${var.prefix}-${var.resource_group_name}"
 }
 # END LOCAL VARS DEF
 

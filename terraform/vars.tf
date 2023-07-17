@@ -13,7 +13,7 @@ variable "env" {
 
 variable "prefix" {
  type = string
- description = "A prefix for all resources"
+ description = "A prefix for some resources"
  default = "CP2"
 }
 
@@ -55,11 +55,36 @@ variable "subnet_name" {
   default = "subnet1"
 }
 
-# AQUI PODRIAMOS HACER UNAC ONDICION: IF env.DEV -> una VM basica, ELSE env.PROD -> UNA MAS POTENTE.
-variable "vm_size" {
- default = "Standard_F2"
+
+# VIRTUAL MACHINE IMAGE AND PLAN DEFINITION
+variable "vm_publisher" {
+ default = "cognosys"
 }
 
+variable "vm_offer" {
+  default = "centos-8-stream-free"
+}
+
+variable "vm_sku" {
+  default = "centos-8-stream-free"
+}
+
+variable "vm_version" {
+  default = "22.03.28"
+}
+
+variable "vm_plan" {
+ default = "hourly"
+}
+
+# AQUI PODRIAMOS HACER UNAC ONDICION: IF env.DEV -> una VM basica, ELSE env.PROD -> UNA MAS POTENTE.
+variable "vm_size" {
+ default = "Standard_DS1_v2"
+}
+
+variable "vm_name" {
+  default = "containerVM"
+}
 
 #INIT K8S AKS Variable definition
 variable "k8s_node_count" {
