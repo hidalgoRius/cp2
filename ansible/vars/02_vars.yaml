@@ -1,4 +1,1 @@
-web_repo: 'https://github.com/hidalgoRius/webpage.git'
-web_repo_branch: 'main'
-htpasswd_user: 'cp2'
-htpasswd_passwd: 'cp2'
+podman_acr_folder: 'podman-vm'

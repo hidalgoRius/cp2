@@ -30,7 +30,7 @@
         state: present
         update_cache: yes
 
-    - name: Install podman  (state=present is optional)
+    - name: Install podman (state=present is optional)
       apt:
         name: "{{ podman_package }}"
         state: present

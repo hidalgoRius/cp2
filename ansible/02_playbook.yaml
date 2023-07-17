@@ -1,76 +1,29 @@
 ---
-- name: 'OCI Image creation for webservers'
+- name: 'Podman Image build and push to ACR'
   hosts: ContainerVM
   remote_user: "{{ podman_ssh_login }}"
   become: true
   vars_files:
-    - vars/02_vars.yaml
-  vars: #estas variables son locales y se necesitan exclusivamente en el ámbito de este playbook.
-    oci_folder: "/home/{{ podman_ssh_login }}/oci_webserver"
-    pkey_path: "{{ oci_folder}}/localhost.key"
-    csr_path: "{{ oci_folder}}/localhost.csr"
-    crt_path: "{{ oci_folder}}/localhost.crt"
-    web_source: "{{ oci_folder }}/web_source"
-    ansible_python_interpreter: /usr/bin/python3 #force to use python3 binary to process this playbook. If not, some modules did work as expected.
+    - vars/02_vars.yaml 
   tasks:
-    - name: Installing python3-passlib to use htpasswd
-      apt: 
-        name: "python3-passlib"
-        state: present
-    - name: Installing python3-pip able to install crypthography python package
-      apt:
-        name: "python3-pip"
-        state: present
-    - name: Install python3 package cryptography (to able to generate openssl_privatekey inside the administrated host)
-      ansible.builtin.pip:
-        name: cryptography
-      
-    - name: Create a directory if it does not exist
-      ansible.builtin.file:
-        path: "{{ oci_folder }}"
-        state: directory
-        mode: '0755'
-    - name: Creating a apache2 password file "{{ oci_folder }}"/.cert
-      ansible.builtin.file: 
-        path: "{{ oci_folder }}/.cert"
-        state: touch
-
-    - name: Create a user "{{ htpasswd_user }}" to restrict web access through .hpasswd file.
-      community.general.htpasswd:
-        path: "{{ oci_folder}}/.cert"
-        name: "{{ htpasswd_user }}"
-        password: "{{ htpasswd_passwd }}"
-        owner: root
-        group: root
-        mode: '0644'
- 
-    - name: Generate an OpenSSL private key 2048 and store it on "{{ pkey_path }}"
-      community.crypto.openssl_privatekey:
-        path: "{{ pkey_path }}"
-        size: 2048
-    - name: Generate an OpenSSL CSR and store it on "{{ csr_path }}"
-      community.crypto.openssl_csr:
-        path: "{{ csr_path }}"
-        privatekey_path: "{{ pkey_path }}"
-        country_name: ES
-        organization_name: casopractico2
-        email_address: jdoe@gmail.com
-        common_name: www.unir.com
-
-    - name: Generate a Self Signed OpenSSL certificate and store it on "{{ crt_path }}"
-      community.crypto.x509_certificate:
-        path: "{{ crt_path }}"
-        privatekey_path: "{{ pkey_path }}"
-        csr_path: "{{ csr_path }}"
-        provider: selfsigned
-
-    - name: Create a folder for web source code "{{ web_source }}"
-      ansible.builtin.file:
-         path: "{{ web_source }}"
-         state: directory
-         mode: '0755'
-    - name: Git clone web source code "{{ web_repo }}"
-      ansible.builtin.git:
-        repo: "{{ web_repo }}"
-        dest: "{{ web_source }}"
-        version: "{{ web_repo_branch }}"
+    - name: Print version
+      debug:
+        msg: "Acr URL:  {{ az_acr_url }}/{{ podman_acr_folder }}"
+    - name: Build OCI Image.
+      containers.podman.podman_image:
+         name: docker.io/ubuntu/apache2
+         path: /path/to/build/dir
+        build:
+           cache: no
+           force_rm: true
+           format: oci
+           annotation:
+             app: apache2
+             function: web-server
+             info: Web server OCI for CasoPractico2 Unir
+             # extra_args: "--build-arg KEY=value"
+        push: true
+        username: "{{ az_acr_user }}"
+        password: "{{ az_acr_passwd }}"
+        push_args:
+          dest: "{{ az_acr_url }}/{{ podman_acr_folder }}"
