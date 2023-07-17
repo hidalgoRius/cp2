@@ -13,25 +13,26 @@ deploy.sh.
 deploy.sh tras realizar unas comprovaciones de los argumentos, llama ejecuta los comandos de Terraform y después, ejecuta los comandos de Ansible.
 No comprueba si Terraform ha ido bien para lanzar Ansible.
 
-Terraform:
-terraform init
-terraform plan -out=myplan -var env=%arg1%
-terraform apply myplan
-terraform refresh
+<h2>Terraform:</h2>
+terraform init<br />
+terraform plan -out=myplan -var env=%arg1%<br />
+terraform apply myplan<br />
+terraform refresh<br />
 
 Finalmente ejecuta terraform output para todas las variables que requiere ansible.
 
-Ansible:
-Se monta un fichero de inventory con la IP de la VM.
-Después, ejecuta de manera ordenada los playbooks.
-00_playbook.yaml : Instala los paquetes necesarios para el correcto funcionamiento del contenedor y los comandos a ejecutar.
-01_playbook.yaml : Ejecuta los comandos necesarios para montar y crear la imagen que se requiere para el caso práctico.
-02_playbook.yaml : Instancia en el demonio del sistema del OS e inicializa el contenedor, con el volumen persistence asociado.
+<h2>Ansible:</h2>
+Automaticamente crea un fichero de inventory con la IP de la VM.<br />
+Después, ejecuta de manera ordenada los playbooks.<br />
+00_playbook.yaml : Instala los paquetes necesarios para el correcto funcionamiento del contenedor y los comandos a ejecutar.<br />
+01_playbook.yaml : Ejecuta los comandos necesarios para montar y crear la imagen que se requiere para el caso práctico.<br />
+02_playbook.yaml : Instancia en el demonio del sistema del OS e inicializa el contenedor, con el volumen persistence asociado.<br />
 
 El script permite los siguientes argumentos
 
 ./deploy.sh [entorno=dev||prod] [--terraform-refresh||--disable-ansible]
 
-El primer argumento se utiliza para conocer el entorno "dev" o "prod", pues existen distintas variables de Terraform que son distintas en función del entorno.
-El segundo argumento es para condicionar la ejecución del script. 
-  --terraform-refresh : Si indicamos este segundo argumento, 
+El primer argumento se utiliza para conocer el entorno "dev" o "prod", pues existen distintas variables de Terraform que son distintas en función del entorno.<br />
+El segundo argumento es para condicionar la ejecución del script. <br />
+  --terraform-refresh : Si indicamos este segundo argumento, solamente ejecuta el terraform refresh y terraform output<br />
+  --disable-ansible : Si indicamos este segundo argumento, no ejecutará la parte de ansible.
