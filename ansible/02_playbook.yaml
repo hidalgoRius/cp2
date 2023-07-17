@@ -1,6 +1,6 @@
 #Separo playbooks  01 y 02 para diferenciar lo que es la construcción de la imagen y el build, de lo que es el despliegue del contenedor con podman.
 ---
-- name: 'Podman generate system daemon and Image run'
+- name: 'Podman generate system daemon and Container run'
   hosts: ContainerVM
   remote_user: "{{ podman_ssh_login }}"
   become: true
@@ -8,18 +8,25 @@
     - vars/01_02_vars.yaml # 01_playbook y 02_playbook comparten algunas variables.
   vars:
     - image_path: "{{ az_acr_url}}/{{ acr_repository }}/{{ image_name }}"
+    - image: "{{ image_path }}:{{image_tag }}"
   tasks:
     - name: Print version
       debug:
         msg: "Acr Image Path:  {{ image_path }}"
-    - name: Re-create a container with state present
+        #    - name: Remove container "{{ image_name }}" #Si ya existe, cuando se ejecuta el playbook, da error diciendo que ya existe el contenedor con nombre xx, aun tenieendo el flag de "recreate: true" la sieguiente tarea. Por ello fuerzo el remove
+      #      containers.podman.podman_container:
+      #  name: "{{ image_name }}"
+      #  state: absent
+    - name: Re-create  container image "{{ image }} with state created"
       containers.podman.podman_container:
         name: "{{ image_name }}"
-        image: "{{ image_path }}:{{ image_tag }}"
+        image: "{{ image }}"
         rm: true
-        state: present #present -> RECREATE
-        expose: 8080
-        publish: 443
+        state: present
+        recreate: true
+        publish: 8080:443
+        volume:
+          - "/home/{{ podman_ssh_login }}/oci_webserver/web_source:/usr/local/apache2/htdocs:Z" #Seems to be a SELinux Issue. Suggests to add a :Z at the end of the mount volume. It works.
     - name: Generate systemd unit file for "{{ image_name }}"  container
       containers.podman.podman_generate_systemd:
         name: "{{ image_name }}"

@@ -6,5 +6,5 @@ httpd_server_admin: 'phidalgo@dummy-domain.com'
 httpd_server_root: '/usr/local/apache2'
 httpd_listen_port: '443'
 image_name: "web-cp2"
-image_tag: "casopractico2"
+image_tag: "casopractico2-1"
 acr_repository: "containervm"

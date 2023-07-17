@@ -43,7 +43,6 @@ function ansible_process() {
        		 	   "01_playbook.yaml --extra-vars \"podman_ssh_login=$2 az_acr_user=$3 az_acr_passwd=$4 az_acr_url=$5\""
 			   "02_playbook.yaml --extra-vars \"podman_ssh_login=$2 az_acr_url=$5\""
 	)
-
 	cd ansible
         echo "$0 >>>>> $(date): Entering to ansible folder. Now $(pwd)"
 	echo "$0 >>>>> $(date): Creating inventory file from Terraform output"
@@ -55,7 +54,7 @@ function ansible_process() {
         do
                 command="ansible-playbook -i inventory ${ansible_playbooks[$i]}"
                 echo "$0 >>>>> $(date): Executing command \"$command\""
-#                eval "$command"
+                eval "$command"
         done
 	cd ..
         echo "$0 >>>>> $(date): Exit ansible folder. Now $(pwd)"

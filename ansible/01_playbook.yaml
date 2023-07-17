@@ -56,12 +56,14 @@
       ansible.builtin.file:
          path: "{{ web_source }}"
          state: directory
-         mode: '0755'
+         mode: '0744'
+         force: true #If some changes in local repository, we ensure that they will be overwritten. A warning will appear
     - name: Git clone web source code "{{ web_repo }}"
       ansible.builtin.git:
         repo: "{{ web_repo }}"
         dest: "{{ web_source }}"
         version: "{{ web_repo_branch }}"
+        force: true
     - name: Template a httpd.j2 to "{{ oci_folder }}/httpd.conf"
       ansible.builtin.template:
         src: templates/httpd.j2
@@ -83,13 +85,13 @@
         owner: root
         group: root
         mode: '0644'
-    - name: Build OCI Image.
+    - name: Build OCI Image "{{ image_name }} and upload to {{ az_acr_url }}/{{ acr_repository }}"
       containers.podman.podman_image:
          name: "{{ image_name }}"
          path: "{{ oci_folder }}"
          tag: "{{ image_tag }}"
          build:
-           cache: no
+           cache: false
            force_rm: true
            format: oci
            annotation:
