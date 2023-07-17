@@ -35,6 +35,12 @@ El script permite los siguientes argumentos
 
 ./deploy.sh [entorno=dev||prod] [--terraform-refresh||--disable-ansible]
 
+<h3>Nota: </h3>
+Cuando Ansible encuentra una nueva huella SSH, la ejecución de ansible se para hasta que aceptamos o no la huella SSH del servidor.<br />
+Para evitar que la ejecución se pare, podemos añadir esta opción en el fichero de configuración de ansible "/etc/ansible/ansible.cfg".
+[defaults]<br />
+host_key_checking = False<br />
+
 El primer argumento se utiliza para conocer el entorno "dev" o "prod", pues existen distintas variables de Terraform que son distintas en función del entorno.<br />
 El segundo argumento es para condicionar la ejecución del script. <br />
   --terraform-refresh : Si indicamos este segundo argumento, solamente ejecuta el terraform refresh y terraform output<br />
