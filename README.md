@@ -1,0 +1,37 @@
+# cp2
+Caso Práctico 2 - UNIR
+
+Despliega una Infraestructura en Azure mediante Terraform y la configura utilizando Ansible.
+
+1- Servicio de Kubernetes
+2- Maquina Virtual
+3- Un Repositorio de Contenedores Privado (ACR)
+
+Para poderlo gestionar de manera automática, se facilita un script llamado deploy.sh que ejecuta el despliegue de la Infraestructura y, con los datos obtenidos de la infraestructura, llama a Ansible para configurar la Infraestructura.
+
+deploy.sh.
+deploy.sh tras realizar unas comprovaciones de los argumentos, llama ejecuta los comandos de Terraform y después, ejecuta los comandos de Ansible.
+No comprueba si Terraform ha ido bien para lanzar Ansible.
+
+Terraform:
+terraform init
+terraform plan -out=myplan -var env=%arg1%
+terraform apply myplan
+terraform refresh
+
+Finalmente ejecuta terraform output para todas las variables que requiere ansible.
+
+Ansible:
+Se monta un fichero de inventory con la IP de la VM.
+Después, ejecuta de manera ordenada los playbooks.
+00_playbook.yaml : Instala los paquetes necesarios para el correcto funcionamiento del contenedor y los comandos a ejecutar.
+01_playbook.yaml : Ejecuta los comandos necesarios para montar y crear la imagen que se requiere para el caso práctico.
+02_playbook.yaml : Instancia en el demonio del sistema del OS e inicializa el contenedor, con el volumen persistence asociado.
+
+El script permite los siguientes argumentos
+
+./deploy.sh [entorno=dev||prod] [--terraform-refresh||--disable-ansible]
+
+El primer argumento se utiliza para conocer el entorno "dev" o "prod", pues existen distintas variables de Terraform que son distintas en función del entorno.
+El segundo argumento es para condicionar la ejecución del script. 
+  --terraform-refresh : Si indicamos este segundo argumento, 
