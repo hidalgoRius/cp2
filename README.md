@@ -9,9 +9,12 @@ Despliega una Infraestructura en Azure mediante Terraform y la configura utiliza
 
 Para poderlo gestionar de manera automática, se facilita un script llamado deploy.sh que ejecuta el despliegue de la Infraestructura y, con los datos obtenidos de la infraestructura, llama a Ansible para configurar la Infraestructura.
 
-deploy.sh.
-deploy.sh tras realizar unas comprovaciones de los argumentos, llama ejecuta los comandos de Terraform y después, ejecuta los comandos de Ansible.
-No comprueba si Terraform ha ido bien para lanzar Ansible.
+<h1>deploy.sh</h1>
+Este script tiene como objetivo explorar más allá de los conocimientos necesarios para caso práctico 2. Se trata de un ejemplo académico. En un entorno real, seria muy peligroso ejecutar este script ya que automáticamente desplegaria la infraestructura.<br />
+Recomendaria revisar el plan y luego ejecutar manualmente el terraform apply.<br />
+En cualquier caso, como ejercicio academico, es muy completo.<br />
+deploy.sh tras realizar unas comprovaciones de los argumentos, llama ejecuta los comandos de Terraform y después, ejecuta los comandos de Ansible.<br />
+No comprueba si Terraform ha ido bien para lanzar Ansible.<br />
 
 <h2>Terraform:</h2>
 terraform init<br />
