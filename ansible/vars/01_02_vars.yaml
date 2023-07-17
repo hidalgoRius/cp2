@@ -1,0 +1,10 @@
+web_repo: 'https://github.com/hidalgoRius/webpage.git'
+web_repo_branch: 'main'
+htpasswd_user: 'cp2'
+htpasswd_passwd: 'cp2'
+httpd_server_admin: 'phidalgo@dummy-domain.com'
+httpd_server_root: '/usr/local/apache2'
+httpd_listen_port: '443'
+image_name: "web-cp2"
+image_tag: "casopractico2"
+acr_repository: "containervm"

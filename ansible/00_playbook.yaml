@@ -4,33 +4,24 @@
   remote_user: "{{ podman_ssh_login }}"
   become: true
   vars_files:
-    - vars/prereq.yaml
+    - vars/00_vars.yaml
   tasks:
-    - name: Upgrade all packages to the latest version (apt-get upgrade)
-      apt:
-        name: "*"
-        state: latest
-        force: yes
-        force_apt_get: True
-
-    - name: Run the equivalent of "apt-get update" as a separate step, only if the last is more than "{{ update_cache_valid }}" seconds
-      apt:
-        cache_valid_time: "{{ update_cache_valid }}"  #Only run "update_cache=yes" if the last one is more than 3600 seconds ago
-        update_cache: yes
-        force: yes
-
-    - name: Install software-properties-common
-      apt:
-        name: software-properties-common
-        force: yes
-
-    - name: Add specified repository into sources list
-      apt_repository:
-        repo: "{{ podman_repository }}"
-        state: present
-        update_cache: yes
-
     - name: Install podman (state=present is optional)
-      apt:
+      ansible.builtin.dnf:
         name: "{{ podman_package }}"
         state: present
+    - name: Install git cli
+      ansible.builtin.dnf:
+        name: "git"
+        state: present
+    - name: Install Python3
+      ansible.builtin.dnf:
+        name: "python3"
+        state: present
+    - name: Install passlib package
+      ansible.builtin.pip:
+        name: passlib
+    - name: Install python3 package cryptography
+      ansible.builtin.pip:
+        name: cryptography
+

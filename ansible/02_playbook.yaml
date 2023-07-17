@@ -1,29 +1,34 @@
+#Separo playbooks  01 y 02 para diferenciar lo que es la construcción de la imagen y el build, de lo que es el despliegue del contenedor con podman.
 ---
-- name: 'Podman Image build and push to ACR'
+- name: 'Podman generate system daemon and Image run'
   hosts: ContainerVM
   remote_user: "{{ podman_ssh_login }}"
   become: true
   vars_files:
-    - vars/02_vars.yaml 
+    - vars/01_02_vars.yaml # 01_playbook y 02_playbook comparten algunas variables.
+  vars:
+    - image_path: "{{ az_acr_url}}/{{ acr_repository }}/{{ image_name }}"
   tasks:
     - name: Print version
       debug:
-        msg: "Acr URL:  {{ az_acr_url }}/{{ podman_acr_folder }}"
-    - name: Build OCI Image.
-      containers.podman.podman_image:
-         name: docker.io/ubuntu/apache2
-         path: /path/to/build/dir
-        build:
-           cache: no
-           force_rm: true
-           format: oci
-           annotation:
-             app: apache2
-             function: web-server
-             info: Web server OCI for CasoPractico2 Unir
-             # extra_args: "--build-arg KEY=value"
-        push: true
-        username: "{{ az_acr_user }}"
-        password: "{{ az_acr_passwd }}"
-        push_args:
-          dest: "{{ az_acr_url }}/{{ podman_acr_folder }}"
+        msg: "Acr Image Path:  {{ image_path }}"
+    - name: Re-create a container with state present
+      containers.podman.podman_container:
+        name: "{{ image_name }}"
+        image: "{{ image_path }}:{{ image_tag }}"
+        rm: true
+        state: present #present -> RECREATE
+        expose: 8080
+        publish: 443
+    - name: Generate systemd unit file for "{{ image_name }}"  container
+      containers.podman.podman_generate_systemd:
+        name: "{{ image_name }}"
+        new: true
+        no_header: true
+        dest: /etc/systemd/system
+    - name: Ensure "{{ image_name }}"  container is started and enabled
+      ansible.builtin.systemd:
+        name: "container-{{ image_name }}"
+        daemon_reload: true
+        state: started
+        enabled: true
