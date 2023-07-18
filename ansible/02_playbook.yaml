@@ -5,6 +5,7 @@
   remote_user: "{{ podman_ssh_login }}"
   become: true
   vars_files:
+    - vars/tf_vars.yaml
     - vars/01_02_vars.yaml # 01_playbook y 02_playbook comparten algunas variables.
   vars:
     - image_path: "{{ az_acr_url}}/{{ acr_repository }}/{{ image_name }}"

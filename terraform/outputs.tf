@@ -2,6 +2,11 @@ output "resource_group_id" {
   value = azurerm_resource_group.rg.id
 }
 
+output "resource_group_name" {
+  value = azurerm_resource_group.rg.name
+}
+
+
 output "vm_id" {
   value = azurerm_linux_virtual_machine.vm.id
 }
@@ -31,16 +36,16 @@ output "ssh_user" {
   value = var.ssh_user
 }
 
-#output "client_certificate" {
-#  value     = azurerm_kubernetes_cluster.k8s.kube_config.0.client_certificate
-#  sensitive = true
-#}
+output "client_certificate" {
+  value     = azurerm_kubernetes_cluster.k8s.kube_config.0.client_certificate
+  sensitive = true
+}
 
-#output "kube_config" {
-#  value = azurerm_kubernetes_cluster.k8s.kube_config_raw
-#  sensitive = true
-#}
+output "kube_config" {
+  value = azurerm_kubernetes_cluster.k8s.kube_config_raw
+  sensitive = true
+}
 
-#output "kubernetes_cluster_name" {
-#  value = azurerm_kubernetes_cluster.k8s.name
-#}
+output "kubernetes_cluster_name" {
+  value = azurerm_kubernetes_cluster.k8s.name
+}

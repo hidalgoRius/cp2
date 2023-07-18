@@ -4,6 +4,7 @@
   remote_user: "{{ podman_ssh_login }}"
   become: true
   vars_files:
+    - vars/tf_vars.yaml
     - vars/01_02_vars.yaml
   vars: #estas variables son locales y se necesitan exclusivamente en el ámbito de este playbook.
     oci_folder: "/home/{{ podman_ssh_login }}/oci_webserver"

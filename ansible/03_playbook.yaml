@@ -1,0 +1,25 @@
+- name: 'Despliegue de aplicación en AKS'
+  hosts: localhost
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  vars_files:
+    - vars/tf_vars.yaml
+    - vars/03_vars.yaml
+  tasks:
+    - name: 'Obtener las credenciales de AKS K8s'
+      shell: 'az aks get-credentials --resource-group {{ rg_name }} --name {{ k8s_name }} --overwrite-existing'   
+
+      #    - name: Create a k8s namespace
+      #kubernetes.core.k8s:
+      #  name: "{{ k8s_namespace }}"
+      #  api_version: v1
+      #  kind: Namespace
+      #  state: present
+    - name: Get a list of all pods from any namespace
+      kubernetes.core.k8s_info:
+        api_version: v1
+        kind: Namespace
+        register: namespace_list
+
+    - debug:
+        var: "{{ namespace_list }}"

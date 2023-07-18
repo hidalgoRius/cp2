@@ -4,6 +4,7 @@
   remote_user: "{{ podman_ssh_login }}"
   become: true
   vars_files:
+    - vars/tf_vars.yaml
     - vars/00_vars.yaml
   tasks:
     - name: Install podman (state=present is optional)
