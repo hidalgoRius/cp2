@@ -24,7 +24,7 @@
         rm: true
         state: present
         recreate: true
-        publish: "{{ container_public_port }}:443"
+        publish: "{{ container_public_port }}:{{ httpd_listen_port }}"
         volume:
           - "/home/{{ podman_ssh_login }}/oci_webserver/web_source:/usr/local/apache2/htdocs:Z" #Seems to be a SELinux Issue. Suggests to add a :Z at the end of the mount volume. It works.
     - name: Generate systemd unit file for "{{ image_name }}"  container
