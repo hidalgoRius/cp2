@@ -14,7 +14,7 @@ function terraform_process() {
                 eval "$command"
         done
 
-	terraform_refresh
+	terraform_refresh $1
 	terraform_outputs
 	cd ..
         echo "$0 >>>>> $(date): Exit terraform folder. Now $(pwd)"
@@ -61,9 +61,6 @@ function ansible_process() {
 
 }
 
-
-
-
 #BEGIN MAIN CODE 
 
 echo "$0 >>>>> $(date): CASO PRACTICO 2 AUTOMATED DEPLOYMENT SCRIPT"
@@ -88,7 +85,7 @@ then
 	#EXECUTING TERRAFORM PROCESS
 	echo "$0 >>>>> $(date): [START] TERRAFORM deploy infrastructure"
 	terraform_process $1
-	echo echo "$0 >>>>> $(date): [END] TERRAFORM deploy infrastructure"
+	echo "$0 >>>>> $(date): [END] TERRAFORM deploy infrastructure"
 
 	if [ -z "$vm_pip" ]
 	then
@@ -111,5 +108,4 @@ then
 else
 	echo "$0 >>>>> $(date): [INFO] Ansible execution is DISABLED by user. Skipping step. $3"
 fi
-
 exit 1

@@ -1,6 +1,4 @@
-FROM docker.io/httpd:latest
-#COPY web_source/ "{{ httpd_server_root }}/htdocs/"
-COPY .htaccess "{{ httpd_server_root }}/htdocs/"
+FROM {{ httpd_image }}
 COPY httpd.conf "{{ httpd_server_root }}/conf/"
 COPY .creds "{{ httpd_server_root }}/"
 COPY localhost.key "{{ httpd_server_root }}/"

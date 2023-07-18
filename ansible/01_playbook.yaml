@@ -13,16 +13,11 @@
     web_source: "{{ oci_folder }}/web_source"
     #    ansible_python_interpreter: /usr/bin/python3 #force to use python3 binary to process this playbook. If not, some modules did work as expected.
   tasks:
-    - name: Create a directory if it does not exist
+    - name: Create a folder for containing image files "{{ oci_folder }}"
       ansible.builtin.file:
         path: "{{ oci_folder }}"
         state: directory
         mode: '0755'
-         #    - name: Creating a apache2 password file "{{ oci_folder }}"/.creds #no es necesario, el siguiente paso crea el fichero si no existe.
-        #ansible.builtin.file: 
-        #path: "{{ oci_folder }}/.creds"
-        #state: touch
-
     - name: Create a user "{{ htpasswd_user }}" to restrict web access through .hpasswd file.
       community.general.htpasswd:
         path: "{{ oci_folder}}/.creds"
@@ -36,6 +31,7 @@
       community.crypto.openssl_privatekey:
         path: "{{ pkey_path }}"
         size: 2048
+
     - name: Generate an OpenSSL CSR and store it on "{{ csr_path }}"
       community.crypto.openssl_csr:
         path: "{{ csr_path }}"
@@ -56,14 +52,15 @@
       ansible.builtin.file:
          path: "{{ web_source }}"
          state: directory
-         mode: '0744'
-         force: true #If some changes in local repository, we ensure that they will be overwritten. A warning will appear
+         mode: '0755'
+
     - name: Git clone web source code "{{ web_repo }}"
       ansible.builtin.git:
         repo: "{{ web_repo }}"
         dest: "{{ web_source }}"
         version: "{{ web_repo_branch }}"
         force: true
+
     - name: Template a httpd.j2 to "{{ oci_folder }}/httpd.conf"
       ansible.builtin.template:
         src: templates/httpd.j2
@@ -78,27 +75,34 @@
         owner: root
         group: root
         mode: '0644'
-    - name: Template a .htaccess.j2 to "{{ oci_folder }}/.htaccess"
+    - name: Template a .htaccess.j2 to "{{ web_source }}/.htaccess"
       ansible.builtin.template:
         src: templates/htaccess.j2
-        dest: "{{ oci_folder }}/.htaccess"
+        dest: "{{ web_source }}/.htaccess" #Lo dejamos aqui porque luego montamos este path en el contenedor. Así esta carpeta tiene permisops de lectura y el contenedor lo dejamos más restructivo.
         owner: root
         group: root
         mode: '0644'
+    - name: Login to registry "{{ az_acr_url }}" 
+      containers.podman.podman_login:
+         username: "{{ az_acr_user }}"
+         password: "{{ az_acr_passwd }}"
+         registry: "{{ az_acr_url }}"
+    - name: Pull an image "{{ httpd_image }}"
+      containers.podman.podman_image:
+        name: "{{ httpd_image }}"
     - name: Build OCI Image "{{ image_name }} and upload to {{ az_acr_url }}/{{ acr_repository }}"
       containers.podman.podman_image:
          name: "{{ image_name }}"
          path: "{{ oci_folder }}"
          tag: "{{ image_tag }}"
-         build:
-           cache: false
-           force_rm: true
-           format: oci
-           annotation:
-             app: apache2
-             function: web-server
-             info: Web server OCI for CasoPractico2 Unir
-             # extra_args: "--build-arg KEY=value"
+         #build:
+         #  cache: false
+         #  force_rm: true
+         #  format: oci
+         #  annotation:
+         #    app: apache2
+         #    function: web-server
+         #    info: Web server OCI for CasoPractico2 Unir
          push: true
          username: "{{ az_acr_user }}"
          password: "{{ az_acr_passwd }}"

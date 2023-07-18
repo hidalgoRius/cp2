@@ -1,10 +1,12 @@
-web_repo: 'https://github.com/hidalgoRius/webpage.git'
-web_repo_branch: 'main'
-htpasswd_user: 'cp2'
-htpasswd_passwd: 'cp2'
+web_repo: 'https://github.com/hidalgoRius/webpage.git' #repositorio git donde se hospeda el codigo fuente del a plicación web.
+web_repo_branch: 'main' #rama del código fuente de la pagina web
+htpasswd_user: 'cp2' #usuario atuh basic para el htaccess
+htpasswd_passwd: 'cp2' #contrasenya auth basic para el htaccess
+httpd_image: 'docker.io/httpd:latest' #imagen base para generar la imagen del proyecto podman
 httpd_server_admin: 'phidalgo@dummy-domain.com'
 httpd_server_root: '/usr/local/apache2'
-httpd_listen_port: '443'
-image_name: "web-cp2"
-image_tag: "casopractico2-1"
-acr_repository: "containervm"
+httpd_listen_port: '443' #puerto que el contenedor expone
+image_name: "web-cp2" #nombre del a imagen
+image_tag: "casopractico2" #version de la imagen
+acr_repository: "containervm" #Repositorio donde se almacena la imagen
+container_public_port: 8080 #puerto que podman expone al exterior
