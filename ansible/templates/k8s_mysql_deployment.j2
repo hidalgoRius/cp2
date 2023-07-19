@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ k8s_mysql_servicename }}
+  namespace: {{ k8s_namespace }}
+spec:
+  ports:
+  - port: {{ k8s_mysql_service_port}}
+  selector:
+    app: {{ k8s_mysql_servicename }}
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ k8s_mysql_servicename }}
+  namespace: {{ k8s_namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ k8s_mysql_servicename }}
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: {{ k8s_mysql_servicename }}
+    spec:
+      containers:
+      - image: {{ acr_mysql_image }}
+        name: {{ k8s_mysql_servicename }}
+        env:
+          # Use secret in real usage
+        - name: MYSQL_ROOT_PASSWORD
+          value: {{ mysql_root_passwd }}
+        ports:
+        - containerPort: {{ k8s_mysql_container_port }}
+          name: mysql
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: {{ k8s_mysql_container_mount_path }}
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: "{{ k8s_mysql_pvc_name }}"
+

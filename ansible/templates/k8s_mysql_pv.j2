@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ k8s_mysql_pv_name }}
+  namespace: {{ k8s_namespace }}
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: "{{ k8s_mysql_pv_vol_size }}"
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "{{ k8s_mysql_pv_host_path }}"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ k8s_mysql_pvc_name }}
+  namespace: {{ k8s_namespace }}
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ k8s_mysql_pvc_size }}

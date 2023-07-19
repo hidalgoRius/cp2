@@ -109,3 +109,12 @@
          password: "{{ az_acr_passwd }}"
          push_args:
            dest: "{{ az_acr_url }}/{{ acr_repository }}"
+    - name: Remove local image "{{ image_name }}:{{ image_tag }}"
+      containers.podman.podman_image:
+         name: "{{ image_name }}:{{ image_tag }}"
+         state: absent
+    - name: Remove httpd image "{{ httpd_image }}"
+      containers.podman.podman_image:
+         name: "{{ httpd_image }}"
+         state: absent
+

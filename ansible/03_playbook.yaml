@@ -1,25 +1,40 @@
 - name: 'Despliegue de aplicación en AKS'
   hosts: localhost
-  vars:
-    ansible_python_interpreter: /usr/bin/python3
   vars_files:
     - vars/tf_vars.yaml
     - vars/03_vars.yaml
+  vars:
+    acr_mysql_image: "{{ az_acr_url }}/{{ acr_repository }}/{{ acr_pull_mysql_image_name }}:{{ mysql_image_tag }}"
   tasks:
-    - name: 'Obtener las credenciales de AKS K8s'
+    - name: Get AZ aks get-credentials
       shell: 'az aks get-credentials --resource-group {{ rg_name }} --name {{ k8s_name }} --overwrite-existing'   
 
-      #    - name: Create a k8s namespace
-      #kubernetes.core.k8s:
-      #  name: "{{ k8s_namespace }}"
-      #  api_version: v1
-      #  kind: Namespace
-      #  state: present
-    - name: Get a list of all pods from any namespace
-      kubernetes.core.k8s_info:
+    - name: Create if not exists k8s namespace "{{ k8s_namespace }}"
+      kubernetes.core.k8s:
+        name: "{{ k8s_namespace }}"
         api_version: v1
         kind: Namespace
-        register: namespace_list
-
-    - debug:
-        var: "{{ namespace_list }}"
+        state: present
+    - name: Pull Mysql image "{{ docker_mysql_image_name }}"
+      containers.podman.podman_image:
+        name: "{{ docker_mysql_image_name }}:{{ mysql_image_tag }}"
+    - name: Push "{{ docker_mysql_image_name }}" to "{{ az_acr_url }}/{{ acr_repository }}"
+      containers.podman.podman_image:
+        name: "{{ acr_pull_mysql_image_name }}:{{ mysql_image_tag }}"
+        push: true
+        username: "{{ az_acr_user }}"
+        password: "{{ az_acr_passwd }}"
+        push_args:
+          dest: "{{ az_acr_url }}/{{ acr_repository }}"
+    - name: Remove local mysql image image "{{ docker_mysql_image_name }}:{{ mysql_image_tag }}"
+      containers.podman.podman_image:
+         name: "{{ docker_mysql_image_name }}:{{ mysql_image_tag }}"
+         state: absent
+    - name: Create Mysql Persitent Volume
+      kubernetes.core.k8s:
+        state: present
+        template: 'templates/k8s_mysql_pv.j2'
+    - name: Create Mysql Deployment
+      kubernetes.core.k8s:
+        state: present
+        template: 'templates/k8s_mysql_deployment.j2'
