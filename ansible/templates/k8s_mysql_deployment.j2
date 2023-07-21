@@ -13,32 +13,37 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ k8s_mysql_servicename }}
+  name: {{ k8s_mysql_podname }}
   namespace: {{ k8s_namespace }}
 spec:
   selector:
     matchLabels:
-      app: {{ k8s_mysql_servicename }}
+      app: {{ k8s_mysql_podname }}
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: {{ k8s_mysql_servicename }}
+        app: {{ k8s_mysql_podname }}
     spec:
       containers:
       - image: {{ acr_mysql_image }}
-        name: {{ k8s_mysql_servicename }}
+        name: {{ k8s_mysql_podname }}
         env:
-          # Use secret in real usage
         - name: MYSQL_ROOT_PASSWORD
           value: {{ mysql_root_passwd }}
+        - name: MYSQL_ROOT_HOST
+          value: '%'
         ports:
         - containerPort: {{ k8s_mysql_container_port }}
           name: mysql
         volumeMounts:
         - name: mysql-persistent-storage
           mountPath: {{ k8s_mysql_container_mount_path }}
+#        lifecycle:
+#          postStart:
+#            exec:
+#              command: ["/bin/sh", "-c", "echo 'bind-address = 0.0.0.0' >> /etc/mysql/mysql.conf.d/mysqld.cnf"]
       volumes:
       - name: mysql-persistent-storage
         persistentVolumeClaim:

@@ -38,7 +38,8 @@
       kubernetes.core.k8s:
         state: present
         template: 'templates/k8s_mysql_deployment.j2'
-        #    - name: Create Mysql LoadBalancer Service (Public ip)
-        #kubernetes.core.k8s:
-        #template: 'templates/k8s_mysql_service_lb.j2'
+        #kubernetes.core.k8s_exec:
+        #namespace: "{{ k8s_namespace }}"
+        #pod:  {{ mysql_
+        #command: "mysql -uroot -p{{ mysql_root_passwd }} -e 'CREATE USER 'cp2'@'%' IDENTIFIED BY 'cp2''"
 
