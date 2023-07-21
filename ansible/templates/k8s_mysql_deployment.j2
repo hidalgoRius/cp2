@@ -8,7 +8,7 @@ spec:
   - port: {{ k8s_mysql_service_port}}
   selector:
     app: {{ k8s_mysql_servicename }}
-  clusterIP: None
+  type: LoadBalancer
 ---
 apiVersion: apps/v1
 kind: Deployment
