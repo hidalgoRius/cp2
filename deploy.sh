@@ -86,9 +86,24 @@ function pluralith_generate_infrastructure_diagram() {
 	cd terraform
 	pluralith graph --out-dir=../diagrams --var env=$1 --show-costs --local-only
 	cd ../diagrams
-	mv Pluralith_Diagram.pdf Infrastructure_diagram.pdf
+	pdftoppm -png Pluralith_Diagram.pdf infrastructure
+	rm Pluralith_Diagram.pdf
+	cd ..
+}
 
+function upload_diagrams_to_git() {
+	git add diagrams/infrastructure-*.png
+	git commit -m "deploy autocommit with infraestructure diagram"
+	git push
+}
 
+#Ejecuta paso de generar diagrama y subirlo a git
+function diagrams_option(){
+	 echo "$0 >>>>> $(date): [START] PLURALITH Infrastructure Diagram generatori process"
+        echo "$0 >>>>> $(date): ** Generate PDF from Pluralith, use pdftoppm to transform as a PNG and then upload it to GIT /diagrams folder"
+        pluralith_generate_infrastructure_diagram $1
+        upload_diagrams_to_git
+        echo "$0 >>>>> $(date): [END] PLURALITH Infrastructure Diagram generator"
 }
 
 #BEGIN MAIN CODE 
@@ -142,11 +157,18 @@ then
         echo "$0 >>>>> $(date): [START] ANSIBLE configure infrastructure"
         ansible_process "$vm_pip" $vm_ssh_user $acr_user $acr_passwd $acr_url
         echo "$0 >>>>> $(date): [END] ANSIBLE configure infrastructure"
-elif [ "$2" == "--disable-ansible" ]
+
+	diagrams_option $1
+	echo "$0 >>>>> $(date): [START] PLURALITH Infrastructure Diagram generatori process"
+       	echo "$0 >>>>> $(date): ** Generate PDF from Pluralith, use pdftoppm to transform as a PNG and then upload it to GIT /diagrams folder"
+	pluralith_generate_infrastructure_diagram $1
+	upload_diagrams_to_git
+	echo "$0 >>>>> $(date): [END] PLURALITH Infrastructure Diagram generator"
+elif [ "$2" == "--only-diagrams" ]
 then
-	echo "$0 >>>>> $(date): [INFO] Ansible execution is DISABLED by user. Skipping step. $3"
+	diagrams_option $1
 else
-	echo "$0 >>>>> $(date): [INFO] Invalid option. Allowed --terraform-refresh or --disable-ansible."
+	echo "$0 >>>>> $(date): [INFO] Invalid option. Allowed --terraform-refresh or --only-diagrams."
 fi
 
 echo "$0 >>>>> $(date): [INFO] Execution script end."
