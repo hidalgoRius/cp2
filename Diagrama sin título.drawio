@@ -1,4 +1,4 @@
-<mxfile modified="2023-07-23T07:15:24.682Z" host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="kqxtZbUaFA9dND0D7Mgg" version="21.6.5" type="github">
+<mxfile modified="2023-07-23T07:15:51.631Z" host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="7TSQMpP7K5cLIIzn045M" version="21.6.5" type="github">
   <diagram id="WI9T0HZ2pTsCkuznbFz-" name="Page-1">
     <mxGraphModel dx="1434" dy="788" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -75,9 +75,6 @@
         </mxCell>
         <mxCell id="66rMoGzos2mskwvuctxs-32" value="00_playbook.yaml" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="420" y="182" width="80" height="36" as="geometry" />
-        </mxCell>
-        <mxCell id="66rMoGzos2mskwvuctxs-35" value="" style="html=1;dashed=0;whiteSpace=wrap;shape=mxgraph.dfd.start" vertex="1" parent="1">
-          <mxGeometry x="390" y="340" width="80" height="30" as="geometry" />
         </mxCell>
         <mxCell id="66rMoGzos2mskwvuctxs-36" value="End" style="html=1;dashed=0;whiteSpace=wrap;shape=mxgraph.dfd.start" vertex="1" parent="1">
           <mxGeometry x="690" y="33" width="80" height="30" as="geometry" />
