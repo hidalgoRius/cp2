@@ -82,6 +82,15 @@ function ansible_process() {
 
 }
 
+function pluralith_generate_infrastructure_diagram() {
+	cd terraform
+	pluralith graph --out-dir=../diagrams --var env=$1 --show-costs --local-only
+	cd ../diagrams
+	mv Pluralith_Diagram.pdf Infrastructure_diagram.pdf
+
+
+}
+
 #BEGIN MAIN CODE 
 
 echo "$0 >>>>> $(date): CASO PRACTICO 2 AUTOMATED DEPLOYMENT SCRIPT"

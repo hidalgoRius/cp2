@@ -1,6 +1,6 @@
 podman_ssh_login: 'vmuser'
 az_acr_user: 'CP2acr'
-az_acr_passwd: '4W3fck7Sd1WBTzpK+5+HJW9z2wyL4f/V67AnewwA1T+ACRBmuTzN'
+az_acr_passwd: 'jKJ6Yt+j+ye41ZsErAp9O+wMo2TRkZMkmn6+pVhDZa+ACRBrmjrD'
 az_acr_url: 'cp2acr.azurecr.io'
 k8s_name: 'k8s'
 rg_name: 'dev-CP2-resource-group'
