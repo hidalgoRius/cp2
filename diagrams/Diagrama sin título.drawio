@@ -1,0 +1,158 @@
+<mxfile host="app.diagrams.net" modified="2023-07-24T16:04:14.758Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="uRQfTA4kjFM6P7-P51tr" version="21.6.5" type="github">
+  <diagram name="Página-1" id="HfQypP1JjqPrTVuShv0i">
+    <mxGraphModel dx="1434" dy="1957" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-1" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=data:image/svg+xml,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHBhdGggZD0ibTI2MC44NDU2NzI2IDExNS4wMTQzMjA0IDg5LjYyNTM2NjIgMjIxLjIwNTEwODYtMTM1LjM3NzUxNzctMTA2LjYzNzgwOTd6bTI1MS4xNTQzMjc0IDE0MC45ODU2Nzk2YzAgMTk2LjMzODMxNzktMjE0LjAwNzQ0NjMgMzE5LjcxNTk0MjQtMzg0LjI4ODg3OTQgMjIxLjU0NjgxNHMtMTcwLjI4MTQ5NDEtMzQ0LjkyNDQ5OTUtLjAwMDA2MS00NDMuMDkzNjg5IDM4NC4yODg5NDA0IDI1LjIwODU1NzEgMzg0LjI4ODk0MDQgMjIxLjU0Njg3NXptLTkxLjkzNjY0NTUgMTMxLjE3NjU3NDctMTM3Ljg2MTk2OS0zMzEuNzc0MjY5MWMtNy4yMzQ2ODAyLTE5LjYyNjQ0OTYtMzUuOTExOTg3My0xOS4yNjM0NTgzLTQzLjMwMTgwMzYgMGwtMTUxLjMxMjc3NDYgMzYzLjkxNDgwMjZoNTEuNzYxNjg4Mmw1OS44OTgzNzY1LTE1MC4wNDMyMTI5IDE3OC43NTAxNjc4IDE0NC40MDg3MjE5YzIxLjg4OTI4MjIgMjAuNjUzNzQ3NSA1My4wMDU1NTQyLS4wOTAzOTMxIDQyLjA2NjMxNDctMjYuNTA2MDQyNXoiLz48L3N2Zz4=;" vertex="1" parent="1">
+          <mxGeometry x="30" y="-290" width="70" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-2" value="00_playbook.yaml" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="-30" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="dgDuiiR9bTfoSiY0CqjO-2" target="dgDuiiR9bTfoSiY0CqjO-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-4" value="01_playbook.yaml" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="-30" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-5" value="02_playbook.yaml" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="-30" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-6" value="03_playbook.yaml" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="-30" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="dgDuiiR9bTfoSiY0CqjO-8" target="dgDuiiR9bTfoSiY0CqjO-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-8" value="00_vars.yaml" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="260" y="-90" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="dgDuiiR9bTfoSiY0CqjO-9" target="dgDuiiR9bTfoSiY0CqjO-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="dgDuiiR9bTfoSiY0CqjO-9" target="dgDuiiR9bTfoSiY0CqjO-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-9" value="01_02_vars.yaml" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="-90" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="dgDuiiR9bTfoSiY0CqjO-12" target="dgDuiiR9bTfoSiY0CqjO-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-12" value="03_vars.yaml" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="540" y="-90" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-16" value="Install Podman" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="208.5" y="10" width="83" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-17" value="Install GIT" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="208.5" y="50" width="83" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-18" value="Install Python3" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="208.5" y="90" width="81.5" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-19" value="Install passlib" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="208.5" y="130" width="81.5" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-21" value="Install cryptography" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="208.5" y="170" width="81.5" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="dgDuiiR9bTfoSiY0CqjO-27">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="250" y="-30" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="dgDuiiR9bTfoSiY0CqjO-27" target="dgDuiiR9bTfoSiY0CqjO-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="dgDuiiR9bTfoSiY0CqjO-27" target="dgDuiiR9bTfoSiY0CqjO-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="dgDuiiR9bTfoSiY0CqjO-27" target="dgDuiiR9bTfoSiY0CqjO-6">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="460" y="-160" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-27" value="tf_vars.yaml" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="-190" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-35" value="Create folder to construct OCI image" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="10" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-36" value="Create .creds file for auth basic" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="50" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-41" value="Generate private key" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="90" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-42" value="Generate CSR" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="130" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-43" value="Generate Self signed certificate" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="170" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-44" value="Generate folder for web source code" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="210" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-45" value="Git clone web source repository" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="250" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-46" value="jinja2 .httpd.conftemplate" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="290" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-47" value="jinja2 Containerfile template" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="330" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-48" value="jinja2 .htaccess template" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="370" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-49" value="Login to private ACR" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="410" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-50" value="Login to private ACR" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="450" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-51" value="Pull httpd image from docker" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="490" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-52" value="Build OCI image and push to private ACR" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="530" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-53" value="Remove local build image" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="570" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-54" value="Remove base image httpd" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="610" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-55" value="Create container image" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="10" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-56" value="Generate systemd unit file for container" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="50" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-57" value="Start service and make them persistent" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="90" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-60" value="Create K8s namespace" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="10" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-61" value="Pull MySQL Server image" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="50" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-62" value="Push image to private ACR" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="90" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-63" value="Remove local MySQL image" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="130" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-64" value="Create K8s persistent volume using jinja2 tempalte" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="170" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="dgDuiiR9bTfoSiY0CqjO-65" value="Deploy K8s MySQL pod using jinja2 template" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="230" width="120" height="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
