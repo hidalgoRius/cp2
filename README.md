@@ -42,7 +42,7 @@ Después, ejecuta de manera ordenada los playbooks.<br />
 00_playbook.yaml : Instala los paquetes necesarios para el correcto funcionamiento del contenedor y los comandos a ejecutar.<br />
 01_playbook.yaml : Ejecuta los comandos necesarios para montar y crear la imagen que se requiere para el caso práctico.<br />
 02_playbook.yaml : Instancia en el demonio del sistema del OS e inicializa el contenedor, con el volumen persistence asociado.<br />
-
+03_playbook.yaml : Ejecuta los comandos necesarios para crear un namespace,pv, pvc y pod en AKS para servir un SGBD MySQL 5.7<br />
 
 
 <h5>Nota: </h5>
