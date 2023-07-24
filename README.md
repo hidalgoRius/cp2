@@ -38,7 +38,7 @@ Finalmente ejecuta terraform output para todas las variables que requiere ansibl
 
 <h2>Ansible:</h2>
 Automaticamente crea un fichero de inventory con la IP de la VM.<br />
-Después, ejecuta de manera ordenada los playbooks.<br />
+Después, el script itera en la carpeta ansible sobre todos los ficheros con extensión .yaml, que presupone son playbooks. Para este caso, existen 4 playbooks distintos.<br />
 00_playbook.yaml : Instala los paquetes necesarios para el correcto funcionamiento del contenedor y los comandos a ejecutar.<br />
 01_playbook.yaml : Ejecuta los comandos necesarios para montar y crear la imagen que se requiere para el caso práctico.<br />
 02_playbook.yaml : Instancia en el demonio del sistema del OS e inicializa el contenedor, con el volumen persistence asociado.<br />
