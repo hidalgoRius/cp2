@@ -1,5 +1,5 @@
 # DEFINE ENVIRONMENT.
-# ES UNA APROXIMACION PARA DEFINIR ENTORNOS DISTINTOS. Solo se aplicará como SUFIJO al resource group.
+# ES UNA APROXIMACION PARA DEFINIR ENTORNOS DISTINTOS. Se aplica como PREFIJO al resource group.
 # SE TRATA DE UN EJEMPLO PAR FINES ACADEMICOS. En entornos reales, la aproximación puede ser otra en función de las necesidades de la empresa.
 variable "env" {
  type = string

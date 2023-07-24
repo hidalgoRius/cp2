@@ -1,4 +1,4 @@
-#Separo playbooks  01 y 02 para diferenciar lo que es la construcción de la imagen y el build, de lo que es el despliegue del contenedor con podman.
+#Separo playbooks  01 y 02 para diferenciar lo que es la construcción de la imagen y el build, de lo que es el despliegue del contenedor con podman y se puede reaprovechar este playbook para otras imagenes.
 ---
 - name: 'Podman generate system daemon and Container run'
   hosts: ContainerVM
@@ -11,16 +11,13 @@
     - image_path: "{{ az_acr_url}}/{{ acr_repository }}/{{ image_name }}"
     - image: "{{ image_path }}:{{image_tag }}"
   tasks:
-    - name: Print version
-      debug:
-        msg: "Acr Image Path:  {{ image_path }}"
-    - name: Re-create container image "{{ image }} with state created"
+    - name: Create container image "{{ image }} with state present"
       containers.podman.podman_container:
         name: "{{ image_name }}"
         image: "{{ image }}"
         rm: true
         state: present
-        recreate: true
+        #recreate: true
         publish: "{{ container_public_port }}:{{ httpd_listen_port }}"
         volume:
           - "/home/{{ podman_ssh_login }}/oci_webserver/web_source:/usr/local/apache2/htdocs:Z" #Seems to be a SELinux Issue. Suggests to add a :Z at the end of the mount volume. It works.

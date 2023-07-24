@@ -17,12 +17,12 @@ deploy.sh tras realizar unas comprovaciones de los argumentos, llama ejecuta los
 No comprueba si Terraform ha ido bien para lanzar Ansible.<br />
 El script permite los siguientes argumentos
 
-<b>./deploy.sh [entorno=dev||prod] [--terraform-refresh||--disable-ansible]</b>
+<b>./deploy.sh [entorno=dev||prod] [--terraform-refresh||--only-diagrams]</b>
 
 El primer argumento se utiliza para conocer el entorno "dev" o "prod", pues existen distintas variables de Terraform que son distintas en función del entorno.<br />
 El segundo argumento es para condicionar la ejecución del script. <br />
   --terraform-refresh : Si indicamos este segundo argumento, solamente ejecuta el terraform refresh y terraform output<br />
-  --disable-ansible : Si indicamos este segundo argumento, no ejecutará la parte de ansible.
+  --only-diagrams : Si indicamos este segundo argumento, regenera el diagrama con Pluralith mediante el terraform.tfstate existente.
 
 <h5>Ejecución:</h5>
 <i><b>./deploy.sh dev</b></i>

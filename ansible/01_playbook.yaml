@@ -12,7 +12,6 @@
     csr_path: "{{ oci_folder}}/localhost.csr"
     crt_path: "{{ oci_folder}}/localhost.crt"
     web_source: "{{ oci_folder }}/web_source"
-    #    ansible_python_interpreter: /usr/bin/python3 #force to use python3 binary to process this playbook. If not, some modules did work as expected.
   tasks:
     - name: Create a folder for containing image files "{{ oci_folder }}"
       ansible.builtin.file:
@@ -91,19 +90,11 @@
     - name: Pull an image "{{ httpd_image }}"
       containers.podman.podman_image:
         name: "{{ httpd_image }}"
-    - name: Build OCI Image "{{ image_name }} and upload to {{ az_acr_url }}/{{ acr_repository }}"
+    - name: Build OCI Image "{{ image_name }} and push to private ACR {{ az_acr_url }}/{{ acr_repository }}"
       containers.podman.podman_image:
          name: "{{ image_name }}"
          path: "{{ oci_folder }}"
          tag: "{{ image_tag }}"
-         #build:
-         #  cache: false
-         #  force_rm: true
-         #  format: oci
-         #  annotation:
-         #    app: apache2
-         #    function: web-server
-         #    info: Web server OCI for CasoPractico2 Unir
          push: true
          username: "{{ az_acr_user }}"
          password: "{{ az_acr_passwd }}"

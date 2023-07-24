@@ -77,9 +77,6 @@ function ansible_process() {
 	cd ..
         echo "$0 >>>>> $(date): Exit ansible folder. Now $(pwd)"
 
-	cd ..
-        echo "$0 >>>>> $(date): Exit ansible folder. Now $(pwd)"
-
 }
 
 function pluralith_generate_infrastructure_diagram() {
@@ -99,7 +96,7 @@ function upload_diagrams_to_git() {
 
 #Ejecuta paso de generar diagrama y subirlo a git
 function diagrams_option(){
-	 echo "$0 >>>>> $(date): [START] PLURALITH Infrastructure Diagram generatori process"
+	echo "$0 >>>>> $(date): [START] PLURALITH Infrastructure Diagram generatori process"
         echo "$0 >>>>> $(date): ** Generate PDF from Pluralith, use pdftoppm to transform as a PNG and then upload it to GIT /diagrams folder"
         pluralith_generate_infrastructure_diagram $1
         upload_diagrams_to_git
@@ -145,6 +142,10 @@ then
         ansible_process
         echo "$0 >>>>> $(date): [END] ANSIBLE configure infrastructure"
 
+	#AUTOMATED INFRASTRUCTURE DIAGRAM GENERATOR
+        diagrams_option $1
+
+
 elif [ "$2" == "--terraform-refresh" ]
 then
 	echo "$0 >>>>> $(date): [INFO] User requests perform only terraform refresh. $2"
@@ -158,12 +159,8 @@ then
         ansible_process "$vm_pip" $vm_ssh_user $acr_user $acr_passwd $acr_url
         echo "$0 >>>>> $(date): [END] ANSIBLE configure infrastructure"
 
+	#AUTOMATED INFRASTRUCTURE DIAGRAM GENERATOR
 	diagrams_option $1
-	echo "$0 >>>>> $(date): [START] PLURALITH Infrastructure Diagram generatori process"
-       	echo "$0 >>>>> $(date): ** Generate PDF from Pluralith, use pdftoppm to transform as a PNG and then upload it to GIT /diagrams folder"
-	pluralith_generate_infrastructure_diagram $1
-	upload_diagrams_to_git
-	echo "$0 >>>>> $(date): [END] PLURALITH Infrastructure Diagram generator"
 elif [ "$2" == "--only-diagrams" ]
 then
 	diagrams_option $1

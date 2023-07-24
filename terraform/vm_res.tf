@@ -38,20 +38,6 @@ resource "azurerm_network_interface" "main" {
   }
 }
 
-# Diria que este recursos no hace falta.
-#resource "azurerm_network_interface" "internal" {
-#  name                      = "${var.vm_name}-nic2"
-#  resource_group_name       = azurerm_resource_group.rg.name
-#  location                  = azurerm_resource_group.rg.location
-#
-#  ip_configuration {
-#    name                          = "internal"
-#    subnet_id                     = azurerm_subnet.internal.id
-#    private_ip_address_allocation = "Dynamic"
-#  }
-#}
-# END DEFINE NET IFACES
-
 
 # BEGIN DEFINE VIRTUALMACHINE
 resource "azurerm_linux_virtual_machine" "vm" {

@@ -6,7 +6,7 @@
   vars:
     acr_mysql_image: "{{ az_acr_url }}/{{ acr_repository }}/{{ acr_pull_mysql_image_name }}:{{ mysql_image_tag }}"
   tasks:
-    - name: Get AZ aks get-credentials
+    - name: Get AZ aks get-credentials #por el momento no existe otra manera de obtener las credenciales de AKS que no sea ejecutando directamente el comando az cli
       shell: 'az aks get-credentials --resource-group {{ rg_name }} --name {{ k8s_name }} --overwrite-existing'   
 
     - name: Create if not exists k8s namespace "{{ k8s_namespace }}"
